@@ -1,0 +1,13 @@
+diff --git a/node_modules/@auth/sveltekit/dist/components/SignIn.svelte b/node_modules/@auth/sveltekit/dist/components/SignIn.svelte
+index f979605..f5ab51b 100644
+--- a/node_modules/@auth/sveltekit/dist/components/SignIn.svelte
++++ b/node_modules/@auth/sveltekit/dist/components/SignIn.svelte
+@@ -18,7 +18,7 @@ const authorizationParamsInputs = authorizationParams ? typeof authorizationPara
+ >
+   <input type="hidden" name="providerId" value={provider} />
+   {#if callbackUrl}
+-    <input type="hidden" name="callbackUrl" value={callbackUrl} />
++    <input type="hidden" name="redirectTo" value={callbackUrl} />
+   {/if}
+   {#if redirect}
+     <input type="hidden" name="redirect" value={redirect} />
