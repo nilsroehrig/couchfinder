@@ -1,6 +1,8 @@
 <script>
 	import hero from '$lib/assets/images/hero.jpg?enhanced';
 	import { MapPin, MessageCircleMore, Star } from 'lucide-svelte';
+	import { page } from '$app/stores';
+	import { SignIn } from '@auth/sveltekit/components';
 </script>
 
 <header class="container">
@@ -19,7 +21,9 @@
 				Discover unique places to stay, connect with new people, and enjoy amazing experiences – all
 				from the comfort of a host&rsquo;s couch.
 			</p>
-			<a href="/login" role="button">Join Couchfinder Today</a>
+			<SignIn options={{ redirectTo: `${$page.url.origin}/app` }}>
+				<span slot="submitButton">Join Couchfinder Today</span>
+			</SignIn>
 		</div>
 		<div>
 			<enhanced:img src={hero} alt="" />
@@ -32,21 +36,30 @@
 		<header><strong role="heading" aria-level="2">Why Choose Couchfinder?</strong></header>
 		<div class="grid">
 			<div>
-				<h3><MapPin /> Explore New Places</h3>
+				<h3>
+					<MapPin />
+					Explore New Places
+				</h3>
 				<p>
 					Stay with locals and discover hidden gems in cities around the world, without the cost of
 					traditional accommodations.
 				</p>
 			</div>
 			<div>
-				<h3><MessageCircleMore /> Connect with Hosts</h3>
+				<h3>
+					<MessageCircleMore />
+					Connect with Hosts
+				</h3>
 				<p>
 					Message hosts, read reviews, and choose the perfect place to stay based on your
 					preferences.
 				</p>
 			</div>
 			<div>
-				<h3><Star /> Ratings & Reviews</h3>
+				<h3>
+					<Star />
+					Ratings & Reviews
+				</h3>
 				<p>
 					Trust the community! See guest and host reviews to find the best matches for your next
 					adventure.
@@ -107,7 +120,7 @@
 		gap: calc(var(--pico-spacing) / 2);
 	}
 
-  footer {
-    text-align: center;
-  }
+	footer {
+		text-align: center;
+	}
 </style>
