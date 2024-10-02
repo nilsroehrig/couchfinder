@@ -27,8 +27,7 @@
 
 	function getFieldErrors(field: string) {
 		// @ts-expect-error because the index type is not defined on formatted zod error
-		const result = form?.errors?.[field]?._errors ?? [];
-		return result;
+		return form?.errors?.[field]?._errors ?? [];
 	}
 
 	$: console.log(form);

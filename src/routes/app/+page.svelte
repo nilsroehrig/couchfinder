@@ -1,5 +1,7 @@
 <script>
 	import { Pen, PlusCircle, Search, Trash } from 'lucide-svelte';
+
+	export let data;
 </script>
 
 <article>
@@ -25,56 +27,26 @@
 			<tr>
 				<th>Location</th>
 				<th>Price</th>
-				<th>Bookings</th>
 				<th class="couch-actions"></th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>New York</td>
-				<td>$100</td>
-				<td>5</td>
-				<td class="couch-actions">
-					<div role="group">
-						<a href="/couches/edit/couchId" role="button" class="outline secondary">
-							<Pen />
-						</a>
-						<a href="/couches/delete/couchId" role="button" class="outline secondary">
-							<Trash />
-						</a>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Los Angeles</td>
-				<td>$120</td>
-				<td>3</td>
-				<td class="couch-actions">
-					<div role="group">
-						<a href="/couches/edit/couchId" role="button" class="outline secondary">
-							<Pen />
-						</a>
-						<a href="/couches/delete/couchId" role="button" class="outline secondary">
-							<Trash />
-						</a>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Chicago</td>
-				<td>$90</td>
-				<td>7</td>
-				<td class="couch-actions">
-					<div role="group">
-						<a href="/couches/edit/couchId" role="button" class="outline secondary">
-							<Pen />
-						</a>
-						<a href="/couches/delete/couchId" role="button" class="outline secondary">
-							<Trash />
-						</a>
-					</div>
-				</td>
-			</tr>
+			{#each data.couches as couch (couch.id)}
+				<tr>
+					<td>{couch.location}</td>
+					<td>{couch.price !== 'free' ? '$ ' : ''}{couch.price}</td>
+					<td class="couch-actions">
+						<div role="group">
+							<a href="/couches/edit/{couch.id}" role="button" class="outline secondary">
+								<Pen />
+							</a>
+							<a href="/couches/delete/{couch.id}" role="button" class="outline secondary">
+								<Trash />
+							</a>
+						</div>
+					</td>
+				</tr>
+			{/each}
 		</tbody>
 	</table>
 </article>
