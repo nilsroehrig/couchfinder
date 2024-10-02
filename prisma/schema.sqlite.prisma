@@ -9,9 +9,9 @@ generator client {
 }
 
 model User {
-  id            String          @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String?         @unique
+  email         String?   @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -19,6 +19,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Couch     Couch[]
 }
 
 model Account {
@@ -60,4 +61,23 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Couch {
+  id             String              @id @default(cuid())
+  host           User                @relation(fields: [hostId], references: [id])
+  hostId         String
+  location       String
+  description    String
+  price          Float?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  availabilities CouchAvailability[]
+}
+
+model CouchAvailability {
+  id            String   @id @default(cuid())
+  couch         Couch    @relation(fields: [couchId], references: [id])
+  couchId       String
+  availableDate DateTime
 }
