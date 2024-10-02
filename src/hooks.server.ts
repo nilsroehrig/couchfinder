@@ -18,6 +18,7 @@ export async function handle({ event, resolve }) {
 	const { handle, ...rest } = svelteKitAuth;
 
 	event.locals.sveltekitAuth = rest;
+	event.locals.prisma = prismaClient;
 
 	return handle({ event, resolve });
 }

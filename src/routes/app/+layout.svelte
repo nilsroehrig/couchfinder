@@ -53,7 +53,7 @@
 	header {
 		padding-left: var(--pico-spacing);
 		padding-right: var(--pico-spacing);
-		background-color: rgba(255, 255, 255, 0.05);
+		background-color: rgba(255, 255, 255, 0.025);
 		grid-column: 1 / -1;
 		grid-row: 1;
 	}
@@ -81,7 +81,7 @@
 	}
 
 	aside {
-		background-color: rgba(255, 255, 255, 0.05);
+		background-color: rgba(255, 255, 255, 0.025);
 		grid-column: 1;
 		padding: var(--pico-spacing);
 	}

@@ -6,7 +6,7 @@
 	<header><strong>Your Couches</strong></header>
 	<div class="search">
 		<form>
-			<fieldset role="group">
+			<fieldset role="search">
 				<input name="term" type="search" placeholder="Search couches" autocomplete="off" />
 				<button type="submit" class="secondary">
 					<Search />
@@ -86,7 +86,8 @@
 		margin-bottom: var(--pico-spacing);
 	}
 
-	[role='group'] {
+	[role='group'],
+	[role='search'] {
 		margin-bottom: 0;
 	}
 
