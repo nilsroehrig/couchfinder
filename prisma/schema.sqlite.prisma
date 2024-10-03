@@ -68,6 +68,7 @@ model Couch {
   id          String    @id @default(cuid())
   host        User      @relation(fields: [hostId], references: [id])
   hostId      String
+  name        String
   location    String
   description String
   price       Float?
