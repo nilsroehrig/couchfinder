@@ -27,8 +27,6 @@ export async function load({ locals }) {
 		error(500);
 	}
 
-	console.table(prismaUser.couches);
-
 	return {
 		couches: prismaUser.couches
 	};

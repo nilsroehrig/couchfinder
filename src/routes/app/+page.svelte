@@ -51,13 +51,25 @@
 					<td class="couch-actions">
 						<form method="post">
 							<div role="group">
-								<a href="/app/couches/{couch.id}/edit" role="button" class="outline secondary">
+								<a
+									href="/app/couches/{couch.id}/edit"
+									role="button"
+									class="outline secondary"
+									data-tooltip="Edit Couch"
+								>
 									<Pen />
 								</a>
-								<a href="/app/couches/{couch.id}/bookings" role="button" class="outline secondary"
-									><Calendar /></a
+								<a
+									href="/app/couches/{couch.id}/bookings"
+									role="button"
+									class="outline secondary"
+									data-tooltip="View Bookings"><Calendar /></a
 								>
-								<button formaction="/app/couches/{couch.id}/delete" class="outline secondary">
+								<button
+									formaction="/app/couches/{couch.id}/delete"
+									class="outline secondary"
+									data-tooltip="Delete Couch"
+								>
 									<Trash />
 								</button>
 							</div>
