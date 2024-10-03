@@ -1,17 +1,8 @@
 import { error } from '@sveltejs/kit';
+import { getUserFromLocals } from '$lib/server/auth';
 
 export async function load({ locals }) {
-	const session = await locals.auth();
-
-	if (!session) {
-		error(401);
-	}
-
-	const user = session.user;
-
-	if (!user?.email) {
-		error(500);
-	}
+	const user = await getUserFromLocals(locals);
 
 	const prismaUser = await locals.prisma.user.findUnique({
 		where: {

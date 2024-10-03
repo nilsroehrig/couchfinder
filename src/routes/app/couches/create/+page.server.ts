@@ -1,15 +1,11 @@
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 import { error, fail, redirect } from '@sveltejs/kit';
+import { getUserFromLocals } from '$lib/server/auth';
 
 export const actions = {
 	async create({ request, locals }) {
-		const user = (await locals.auth())?.user;
-
-		if (!user?.email) {
-			error(401);
-		}
-
+		const user = await getUserFromLocals(locals);
 		const originalData = await request.formData();
 
 		const couchInput = zfd.formData(CouchInputSchema).safeParse(originalData);
