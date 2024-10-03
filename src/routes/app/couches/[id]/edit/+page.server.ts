@@ -9,7 +9,11 @@ export async function load({ params, locals }) {
 		where: {
 			id: params.id
 		},
-		include: {
+		select: {
+			location: true,
+			price: true,
+			description: true,
+			name: true,
 			host: true
 		}
 	});
@@ -18,14 +22,14 @@ export async function load({ params, locals }) {
 		error(404);
 	}
 
-	if (couch.host.email !== user.email) {
+	const { host, ...couchData } = couch;
+
+	if (host.email !== user.email) {
 		error(403);
 	}
 
-	const { location, price, description } = couch;
-
 	return {
-		couch: { location, price, description }
+		couch: couchData
 	};
 }
 

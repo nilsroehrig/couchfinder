@@ -15,6 +15,7 @@ export async function load({ locals }) {
 					location: true,
 					price: true,
 					description: true,
+					name: true,
 					_count: {
 						select: { bookings: true }
 					}

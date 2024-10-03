@@ -9,7 +9,7 @@
 
 	function applyFilter(term: string) {
 		return data.couches.filter((couch) =>
-			couch.location.toLowerCase().includes(term.toLowerCase())
+			(couch.location + couch.name).toLowerCase().includes(term.toLowerCase())
 		);
 	}
 </script>
@@ -36,6 +36,7 @@
 	<table>
 		<thead>
 			<tr>
+				<th class="name">Name</th>
 				<th>Location</th>
 				<th>Price per Night</th>
 				<th>Bookings</th>
@@ -45,6 +46,7 @@
 		<tbody>
 			{#each filteredCouches as couch (couch.id)}
 				<tr>
+					<td class="name">{couch.name}</td>
 					<td>{couch.location}</td>
 					<td>$ {couch.price}</td>
 					<td>{couch._count.bookings}</td>
@@ -55,7 +57,7 @@
 									href="/app/couches/{couch.id}/edit"
 									role="button"
 									class="outline secondary"
-									data-tooltip="Edit Couch"
+									data-tooltip="Edit {couch.name}"
 								>
 									<Pen />
 								</a>
@@ -68,7 +70,7 @@
 								<button
 									formaction="/app/couches/{couch.id}/delete"
 									class="outline secondary"
-									data-tooltip="Delete Couch"
+									data-tooltip="Delete {couch.name}"
 								>
 									<Trash />
 								</button>
@@ -103,5 +105,9 @@
 	.couch-actions {
 		width: 0;
 		text-align: right;
+	}
+
+	.name {
+		font-weight: bold;
 	}
 </style>

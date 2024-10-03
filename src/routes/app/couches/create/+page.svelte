@@ -41,6 +41,14 @@
 		</ul>
 	{/if}
 	<form action="?/create" method="post">
+		<label for="name">Name</label>
+		<input
+			id="name"
+			name="name"
+			placeholder="The Fancy One"
+			aria-invalid={isInvalid('name')}
+			value={form?.values.name ?? ''}
+		/>
 		<label for="location"> Location </label>
 		<input
 			id="location"

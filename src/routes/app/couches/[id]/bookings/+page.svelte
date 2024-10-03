@@ -7,7 +7,7 @@
 
 <article>
 	<header>
-		<strong>Bookings for cm1thj7120000pc303x0nydpu</strong>
+		<strong>Bookings for The Fancy One</strong>
 	</header>
 	<div class="controls">
 		<div>
@@ -38,7 +38,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>cm1thj7120000pc303x0nydpu</td>
+				<td>The Fancy One</td>
 				<td>2021-10-01</td>
 				<td>2021-10-03</td>
 				<td>Booked</td>

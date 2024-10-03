@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CircleFadingArrowUp, PlusCircle } from 'lucide-svelte';
+	import { CircleFadingArrowUp } from 'lucide-svelte';
 
 	export let data;
 	export let form;
@@ -44,6 +44,14 @@
 		</ul>
 	{/if}
 	<form method="post">
+		<label for="name">Name</label>
+		<input
+			id="name"
+			name="name"
+			placeholder="The Fancy One"
+			aria-invalid={isInvalid('name')}
+			value={form?.values.name ?? couch.name}
+		/>
 		<label for="location"> Location </label>
 		<input
 			id="location"
