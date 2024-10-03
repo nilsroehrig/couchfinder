@@ -9,7 +9,17 @@ export async function load({ locals }) {
 			email: user.email
 		},
 		include: {
-			couches: true
+			couches: {
+				select: {
+					id: true,
+					location: true,
+					price: true,
+					description: true,
+					_count: {
+						select: { bookings: true }
+					}
+				}
+			}
 		}
 	});
 
@@ -17,12 +27,9 @@ export async function load({ locals }) {
 		error(500);
 	}
 
+	console.table(prismaUser.couches);
+
 	return {
-		couches: prismaUser.couches.map(({ id, location, price, description }) => ({
-			id,
-			location,
-			price: price ?? 'free',
-			description
-		}))
+		couches: prismaUser.couches
 	};
 }

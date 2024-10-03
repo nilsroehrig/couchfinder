@@ -17,9 +17,10 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   couches   Couch[]
+  Booking   Booking[]
 }
 
 model Account {
@@ -64,20 +65,27 @@ model VerificationToken {
 }
 
 model Couch {
-  id             String              @id @default(cuid())
-  host           User                @relation(fields: [hostId], references: [id])
-  hostId         String
-  location       String
-  description    String
-  price          Float?
-  createdAt      DateTime            @default(now())
-  updatedAt      DateTime            @updatedAt
-  availabilities CouchAvailability[]
+  id          String    @id @default(cuid())
+  host        User      @relation(fields: [hostId], references: [id])
+  hostId      String
+  location    String
+  description String
+  price       Float?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  bookings    Booking[]
 }
 
-model CouchAvailability {
-  id            String   @id @default(cuid())
-  couch         Couch    @relation(fields: [couchId], references: [id])
-  couchId       String
-  availableDate DateTime
+model Booking {
+  id        String   @id @default(cuid())
+  couch     Couch    @relation(fields: [couchId], references: [id], onDelete: Cascade)
+  couchId   String
+  guest     User?    @relation(fields: [guestId], references: [id], onDelete: SetNull)
+  guestId   String?
+  startDate DateTime
+  endDate   DateTime
+  reason    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

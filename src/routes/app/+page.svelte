@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Pen, PlusCircle, Trash } from 'lucide-svelte';
+	import { Calendar, Pen, PlusCircle, Trash } from 'lucide-svelte';
 
 	export let data;
 
@@ -38,6 +38,7 @@
 			<tr>
 				<th>Location</th>
 				<th>Price per Night</th>
+				<th>Bookings</th>
 				<th class="couch-actions"></th>
 			</tr>
 		</thead>
@@ -45,13 +46,17 @@
 			{#each filteredCouches as couch (couch.id)}
 				<tr>
 					<td>{couch.location}</td>
-					<td>{couch.price !== 'free' ? '$ ' : ''}{couch.price}</td>
+					<td>$ {couch.price}</td>
+					<td>{couch._count.bookings}</td>
 					<td class="couch-actions">
 						<form method="post">
 							<div role="group">
 								<a href="/app/couches/{couch.id}/edit" role="button" class="outline secondary">
 									<Pen />
 								</a>
+								<a href="/app/couches/{couch.id}/bookings" role="button" class="outline secondary"
+									><Calendar /></a
+								>
 								<button formaction="/app/couches/{couch.id}/delete" class="outline secondary">
 									<Trash />
 								</button>
@@ -61,7 +66,7 @@
 				</tr>
 			{:else}
 				<tr>
-					<td colspan="3">No couches found</td>
+					<td colspan="4">No couches found</td>
 				</tr>
 			{/each}
 		</tbody>
