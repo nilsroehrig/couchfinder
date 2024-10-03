@@ -1,7 +1,10 @@
 <script lang="ts">
-	import { PlusCircle } from 'lucide-svelte';
+	import { CircleFadingArrowUp, PlusCircle } from 'lucide-svelte';
 
+	export let data;
 	export let form;
+
+	$: couch = data.couch;
 
 	function hasFieldErrors(field: string) {
 		if (!form) {
@@ -32,7 +35,7 @@
 </script>
 
 <article>
-	<header><strong> Create a Couch </strong></header>
+	<header><strong> Edit Couch at {couch.location} </strong></header>
 	{#if form?.errors?._errors?.length}
 		<ul class="form-errors">
 			{#each form.errors._errors as error}
@@ -40,14 +43,14 @@
 			{/each}
 		</ul>
 	{/if}
-	<form action="?/create" method="post">
+	<form method="post">
 		<label for="location"> Location </label>
 		<input
 			id="location"
 			name="location"
 			placeholder="23783 Norman Station, Revamouth, MO 72247"
 			aria-invalid={isInvalid('location')}
-			value={form?.values.location ?? ''}
+			value={form?.values.location ?? couch.location}
 		/>
 		{#if hasFieldErrors('location')}
 			<small>
@@ -62,7 +65,7 @@
 			type="text"
 			placeholder="15.00"
 			aria-invalid={isInvalid('price')}
-			value={form?.values.price ?? ''}
+			value={form?.values.price ?? couch.price}
 		/>
 		{#if hasFieldErrors('price')}
 			<small>
@@ -73,7 +76,7 @@
 		{/if}
 		<label for="description"> Description </label>
 		<textarea id="description" name="description" aria-invalid={isInvalid('description')} rows="5"
-			>{form?.values.description ?? ''}</textarea
+			>{form?.values.description ?? couch.description}</textarea
 		>
 		{#if hasFieldErrors('description')}
 			<small>
@@ -84,8 +87,8 @@
 		{/if}
 
 		<button type="submit" class="primary">
-			<PlusCircle />
-			Add Couch
+			<CircleFadingArrowUp />
+			Update Couch
 		</button>
 	</form>
 </article>

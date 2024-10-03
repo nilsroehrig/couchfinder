@@ -1,7 +1,7 @@
-import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { getUserFromLocals } from '$lib/server/auth';
+import { CouchInputSchema } from '$lib/schemas/input/CouchInputSchema';
 
 export const actions = {
 	async create({ request, locals }) {
@@ -38,9 +38,3 @@ export const actions = {
 		redirect(303, '/app');
 	}
 };
-
-const CouchInputSchema = z.object({
-	location: z.string().min(1),
-	description: z.string().min(1),
-	price: z.coerce.number().nonnegative().finite().safe().optional()
-});
