@@ -18,7 +18,7 @@ export async function load({ locals }) {
 			email: user.email
 		},
 		include: {
-			Couch: true
+			couches: true
 		}
 	});
 
@@ -27,7 +27,7 @@ export async function load({ locals }) {
 	}
 
 	return {
-		couches: prismaUser.Couch.map(({ id, location, price, description }) => ({
+		couches: prismaUser.couches.map(({ id, location, price, description }) => ({
 			id,
 			location,
 			price: price ?? 'free',
