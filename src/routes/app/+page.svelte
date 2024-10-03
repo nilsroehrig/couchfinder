@@ -26,7 +26,7 @@
 		<thead>
 			<tr>
 				<th>Location</th>
-				<th>Price</th>
+				<th>Price per Night</th>
 				<th class="couch-actions"></th>
 			</tr>
 		</thead>
@@ -36,14 +36,16 @@
 					<td>{couch.location}</td>
 					<td>{couch.price !== 'free' ? '$ ' : ''}{couch.price}</td>
 					<td class="couch-actions">
-						<div role="group">
-							<a href="/couches/edit/{couch.id}" role="button" class="outline secondary">
-								<Pen />
-							</a>
-							<a href="/couches/delete/{couch.id}" role="button" class="outline secondary">
-								<Trash />
-							</a>
-						</div>
+						<form method="post">
+							<div role="group">
+								<a href="/app/couches/{couch.id}/edit" role="button" class="outline secondary">
+									<Pen />
+								</a>
+								<button formaction="/app/couches/{couch.id}/delete" class="outline secondary">
+									<Trash />
+								</button>
+							</div>
+						</form>
 					</td>
 				</tr>
 			{/each}
