@@ -1,20 +1,31 @@
-<script>
-	import { Pen, PlusCircle, Search, Trash } from 'lucide-svelte';
+<script lang="ts">
+	import { Pen, PlusCircle, Trash } from 'lucide-svelte';
 
 	export let data;
+
+	let term: string = '';
+
+	$: filteredCouches = applyFilter(term);
+
+	function applyFilter(term: string) {
+		return data.couches.filter((couch) =>
+			couch.location.toLowerCase().includes(term.toLowerCase())
+		);
+	}
 </script>
 
 <article>
 	<header><strong>Your Couches</strong></header>
-	<div class="search">
-		<form>
-			<fieldset role="search">
-				<input name="term" type="search" placeholder="Search couches" autocomplete="off" />
-				<button type="submit" class="secondary">
-					<Search />
-				</button>
-			</fieldset>
-		</form>
+	<div class="controls">
+		<div>
+			<input
+				name="term"
+				type="search"
+				placeholder="Filter couches"
+				autocomplete="off"
+				bind:value={term}
+			/>
+		</div>
 		<div class="grid page-actions">
 			<a href="/app/couches/create" role="button">
 				<PlusCircle />
@@ -31,7 +42,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each data.couches as couch (couch.id)}
+			{#each filteredCouches as couch (couch.id)}
 				<tr>
 					<td>{couch.location}</td>
 					<td>{couch.price !== 'free' ? '$ ' : ''}{couch.price}</td>
@@ -48,20 +59,27 @@
 						</form>
 					</td>
 				</tr>
+			{:else}
+				<tr>
+					<td colspan="3">No couches found</td>
+				</tr>
 			{/each}
 		</tbody>
 	</table>
 </article>
 
 <style>
-	.search {
+	.controls {
 		display: flex;
 		justify-content: space-between;
 		margin-bottom: var(--pico-spacing);
 	}
 
-	[role='group'],
-	[role='search'] {
+	.controls [type='search'] {
+		margin-bottom: 0;
+	}
+
+	[role='group'] {
 		margin-bottom: 0;
 	}
 
