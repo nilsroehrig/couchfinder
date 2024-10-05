@@ -42,7 +42,9 @@ export const actions = {
 		if (!couchInput.success) {
 			return fail(400, {
 				errors: couchInput.error.format(),
-				values: Object.fromEntries(originalData.entries())
+				values: Object.fromEntries(
+					originalData.entries().map(([key, value]) => [key, String(value)])
+				)
 			});
 		}
 

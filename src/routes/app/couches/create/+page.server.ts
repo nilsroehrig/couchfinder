@@ -4,7 +4,7 @@ import { getUserFromLocals } from '$lib/server/auth';
 import { CouchInputSchema } from '$lib/schemas/input/CouchInputSchema';
 
 export const actions = {
-	async create({ request, locals }) {
+	async default({ request, locals }) {
 		const user = await getUserFromLocals(locals);
 		const originalData = await request.formData();
 
@@ -12,7 +12,9 @@ export const actions = {
 		if (!couchInput.success) {
 			return fail(400, {
 				errors: couchInput.error.format(),
-				values: Object.fromEntries(originalData.entries())
+				values: Object.fromEntries(
+					originalData.entries().map(([key, value]) => [key, String(value)])
+				)
 			});
 		}
 

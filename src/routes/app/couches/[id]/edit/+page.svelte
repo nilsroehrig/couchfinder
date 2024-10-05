@@ -1,37 +1,16 @@
 <script lang="ts">
 	import { CircleFadingArrowUp } from 'lucide-svelte';
+	import Input from '$lib/components/Input.svelte';
+	import { getFieldErrors } from '$lib/helpers/form';
+	import TextArea from '$lib/components/TextArea.svelte';
+	import { enhance } from '$app/forms';
 
 	export let data;
 	export let form;
 
 	$: couch = data.couch;
 
-	function hasFieldErrors(field: string) {
-		if (!form) {
-			return false;
-		}
-
-		return Object.hasOwn(form.errors, field);
-	}
-
-	function isInvalid(field: string) {
-		if (!form) {
-			return null;
-		}
-
-		const hasErrors = hasFieldErrors(field);
-
-		if (!hasErrors) {
-			return 'false';
-		}
-
-		return 'true';
-	}
-
-	function getFieldErrors(field: string) {
-		// @ts-expect-error because the index type is not defined on formatted zod error
-		return form?.errors?.[field]?._errors ?? [];
-	}
+	$: formHasErrors = !!form?.errors;
 </script>
 
 <article>
@@ -43,56 +22,46 @@
 			{/each}
 		</ul>
 	{/if}
-	<form method="post">
+	<form method="post" use:enhance>
 		<label for="name">Name</label>
-		<input
+		<Input
 			id="name"
 			name="name"
 			placeholder="The Fancy One"
-			aria-invalid={isInvalid('name')}
 			value={form?.values.name ?? couch.name}
+			errors={getFieldErrors(form?.errors, 'name')}
+			{formHasErrors}
 		/>
+
 		<label for="location"> Location </label>
-		<input
+		<Input
 			id="location"
 			name="location"
 			placeholder="23783 Norman Station, Revamouth, MO 72247"
-			aria-invalid={isInvalid('location')}
 			value={form?.values.location ?? couch.location}
+			errors={getFieldErrors(form?.errors, 'location')}
+			{formHasErrors}
 		/>
-		{#if hasFieldErrors('location')}
-			<small>
-				{#each getFieldErrors('location') as error}
-					{error}<br />
-				{/each}
-			</small>
-		{/if}
+
 		<label for="price"> Price per Night (leave empty if free) </label>
-		<input
+		<Input
 			name="price"
 			type="text"
 			placeholder="15.00"
-			aria-invalid={isInvalid('price')}
 			value={form?.values.price ?? couch.price}
+			errors={getFieldErrors(form?.errors, 'price')}
+			{formHasErrors}
 		/>
-		{#if hasFieldErrors('price')}
-			<small>
-				{#each getFieldErrors('price') as error}
-					{error}<br />
-				{/each}
-			</small>
-		{/if}
+
 		<label for="description"> Description </label>
-		<textarea id="description" name="description" aria-invalid={isInvalid('description')} rows="5"
-			>{form?.values.description ?? couch.description}</textarea
-		>
-		{#if hasFieldErrors('description')}
-			<small>
-				{#each getFieldErrors('description') as error}
-					{error}<br />
-				{/each}
-			</small>
-		{/if}
+		<TextArea
+			id="description"
+			name="description"
+			rows={5}
+			value={form?.values.description ?? couch.description}
+			errors={getFieldErrors(form?.errors, 'description')}
+			{formHasErrors}
+		/>
 
 		<button type="submit" class="primary">
 			<CircleFadingArrowUp />
