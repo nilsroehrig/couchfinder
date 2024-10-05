@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Pen, PlusCircle, X } from 'lucide-svelte';
+	import { Ban, Pen, X } from 'lucide-svelte';
 	import { page } from '$app/stores';
 
 	let term: string = '';
@@ -21,9 +21,9 @@
 		</div>
 		<div class="grid page-actions">
 			<a href="/app/couches/{$page.params.id}/book" role="button">
-				<PlusCircle />
-				Add a Booking</a
-			>
+				<Ban />
+				Add Blocking
+			</a>
 		</div>
 	</div>
 	<table>

@@ -43,6 +43,7 @@
     "@picocss/pico": "^2.0.6",
     "@prisma/adapter-d1": "^5.19.1",
     "@prisma/client": "^5.20.0",
+    "just-omit": "^2.2.0",
     "lucide-svelte": "^0.445.0",
     "zod": "^3.23.8",
     "zod-form-data": "^2.0.2"
