@@ -105,7 +105,11 @@ async function checkAvailability(
 	return !overlappingBooking;
 }
 
-async function checkOwnership(prisma: PrismaClient, user: User, couchId: string) {
+async function checkOwnership(prisma: PrismaClient, user: User | undefined, couchId: string) {
+	if (!user) {
+		return false;
+	}
+
 	const couch = await prisma.couch.findFirst({
 		where: {
 			id: couchId,

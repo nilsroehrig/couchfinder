@@ -74,7 +74,8 @@
 	}
 
 	main {
-		overflow: auto;
+		overflow-y: auto;
+		overflow-x: hidden;
 		grid-column: 2 / -1;
 		grid-row: 2;
 		padding: var(--pico-spacing);

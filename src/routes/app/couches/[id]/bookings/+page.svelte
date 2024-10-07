@@ -2,23 +2,14 @@
 	import { Ban, Pen, X } from 'lucide-svelte';
 	import { page } from '$app/stores';
 
-	let term: string = '';
+	export let data;
 </script>
 
 <article>
 	<header>
-		<strong>Bookings for The Fancy One</strong>
+		<strong>Bookings for {data.couch.name}</strong>
 	</header>
 	<div class="controls">
-		<div>
-			<input
-				name="term"
-				type="search"
-				placeholder="Filter bookings"
-				autocomplete="off"
-				bind:value={term}
-			/>
-		</div>
 		<div class="grid page-actions">
 			<a href="/app/couches/{$page.params.id}/book" role="button">
 				<Ban />
@@ -29,7 +20,6 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Couch</th>
 				<th>From</th>
 				<th>Until</th>
 				<th>Reason</th>
@@ -37,33 +27,36 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>The Fancy One</td>
-				<td>2021-10-01</td>
-				<td>2021-10-03</td>
-				<td>Booked</td>
-				<td class="actions">
-					<form method="post">
-						<div role="group">
-							<a
-								href="/app/bookings/1/edit"
-								role="button"
-								class="outline secondary"
-								data-tooltip="Edit Booking"
-							>
-								<Pen />
-							</a>
-							<button
-								formaction="/app/bookings/1/cancel"
-								class="outline secondary"
-								data-tooltip="Cancel Booking"
-							>
-								<X />
-							</button>
-						</div>
-					</form>
-				</td>
-			</tr>
+			{#each data.couch.bookings as booking (booking.id)}
+				<tr>
+					<td>{booking.startDate.toLocaleDateString('en-US')}</td>
+					<td>{booking.endDate.toLocaleDateString('en-US')}</td>
+					<td>{booking.reason}</td>
+					<td class="actions">
+						<form method="post">
+							<div role="group">
+								{#if booking.reason === 'blocked'}
+									<a
+										href="/app/bookings/{booking.id}/edit"
+										role="button"
+										class="outline secondary"
+										data-tooltip="Edit Booking"
+									>
+										<Pen />
+									</a>
+								{/if}
+								<button
+									formaction="/app/bookings/{booking.id}/cancel"
+									class="outline secondary"
+									data-tooltip="Cancel Booking"
+								>
+									<X />
+								</button>
+							</div>
+						</form>
+					</td>
+				</tr>
+			{/each}
 		</tbody>
 	</table>
 </article>
@@ -75,10 +68,6 @@
 		margin-bottom: var(--pico-spacing);
 	}
 
-	.controls [type='search'] {
-		margin-bottom: 0;
-	}
-
 	[role='group'] {
 		margin-bottom: 0;
 	}
@@ -86,5 +75,9 @@
 	.actions {
 		width: 0;
 		text-align: right;
+	}
+
+	.page-actions {
+		margin-left: auto;
 	}
 </style>
