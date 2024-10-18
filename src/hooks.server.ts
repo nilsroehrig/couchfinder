@@ -7,8 +7,12 @@ let prismaClient: PrismaClient;
 
 export async function handle({ event, resolve }) {
 	if (!prismaClient) {
-		const adapter = new PrismaD1(event.platform!.env.DB);
-		prismaClient = new PrismaClient({ adapter });
+		if (event.platform?.env?.DB) {
+			const adapter = new PrismaD1(event.platform!.env.DB);
+			prismaClient = new PrismaClient({ adapter });
+		} else {
+			prismaClient = new PrismaClient();
+		}
 	}
 
 	if (!svelteKitAuth) {
