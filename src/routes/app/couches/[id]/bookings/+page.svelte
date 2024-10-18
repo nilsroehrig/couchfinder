@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Ban, Pen, X } from 'lucide-svelte';
 	import { page } from '$app/stores';
+	import { enhance } from '$app/forms';
 
 	export let data;
 </script>
@@ -33,7 +34,7 @@
 					<td>{booking.endDate.toLocaleDateString('en-US')}</td>
 					<td>{booking.reason}</td>
 					<td class="actions">
-						<form method="post">
+						<form method="post" use:enhance>
 							<div role="group">
 								{#if booking.reason === 'blocked'}
 									<a
@@ -46,7 +47,7 @@
 									</a>
 								{/if}
 								<button
-									formaction="/app/bookings/{booking.id}/cancel"
+									formaction="/app/couches/{data.couch.id}/bookings/{booking.id}/cancel"
 									class="outline secondary"
 									data-tooltip="Cancel Booking"
 								>

@@ -7,6 +7,7 @@ export async function load({ params, locals }) {
 			id: params.id
 		},
 		select: {
+			id: true,
 			name: true,
 			host: {
 				select: {
@@ -38,6 +39,6 @@ export async function load({ params, locals }) {
 	}
 
 	return {
-		couch: pick(couch, ['name', 'bookings'])
+		couch: pick(couch, ['name', 'bookings', 'id'])
 	};
 }
