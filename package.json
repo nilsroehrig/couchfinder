@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "build:cloudflare": "npm run prisma:migrate:cloudflare && npm run prisma:generate:cloudflare && npm run build",
     "preview": "npm run build && wrangler pages dev",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -12,7 +13,9 @@
     "format": "prettier --write .",
     "deploy": "npm run build && wrangler pages deploy",
     "cf-typegen": "wrangler types && mv worker-configuration.d.ts src/",
-    "postinstall": "npx patch-package"
+    "postinstall": "npx patch-package",
+    "prisma:generate:cloudflare": "npx prisma generate --schema prisma/schema.sqlite.prisma",
+    "prisma:migrate:cloudflare": "npx wrangler d1 migrations apply couchfinder --remote"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240919.0",
