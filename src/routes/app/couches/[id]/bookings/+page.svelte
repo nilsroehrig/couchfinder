@@ -38,7 +38,7 @@
 							<div role="group">
 								{#if booking.reason === 'blocked'}
 									<a
-										href="/app/bookings/{booking.id}/edit"
+										href="/app/couches/{data.couch.id}/bookings/{booking.id}/edit"
 										role="button"
 										class="outline secondary"
 										data-tooltip="Edit Booking"
@@ -56,6 +56,10 @@
 							</div>
 						</form>
 					</td>
+				</tr>
+			{:else}
+				<tr>
+					<td colspan="4">No bookings found</td>
 				</tr>
 			{/each}
 		</tbody>

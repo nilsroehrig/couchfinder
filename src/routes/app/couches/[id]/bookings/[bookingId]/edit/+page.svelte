@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Ban, CalendarCheck } from 'lucide-svelte';
+	import { enhance } from '$app/forms';
+	import { dateToISODate } from '$lib/helpers/date';
+	import { CircleFadingArrowUp } from 'lucide-svelte';
+	import CancelButton from '$lib/components/CancelButton.svelte';
+	import FormErrorDisplayer from '$lib/components/FormErrorDisplayer.svelte';
 	import Input from '$lib/components/Input.svelte';
 	import { getFieldErrors } from '$lib/helpers/form';
-	import { enhance } from '$app/forms';
-	import FormErrorDisplayer from '$lib/components/FormErrorDisplayer.svelte';
-
-	const todayAsISO = new Date().toISOString().split('T').at(0) ?? '';
 
 	export let data;
 	export let form;
@@ -15,20 +15,20 @@
 
 <article>
 	<header>
-		<strong>{data.isOwner ? 'Block' : 'Book'} {data.couch.name}</strong>
+		<strong>Edit Booking of {data.couch.name}</strong>
+		<CancelButton on:click={() => window.history.back()} />
 	</header>
-	<FormErrorDisplayer errors={form?.errors} />
 	<form method="post" use:enhance>
+		<FormErrorDisplayer errors={form?.errors} />
 		<div class="grid">
 			<div>
 				<label for="startDate">From</label>
 				<Input
 					type="date"
-					id="startDate"
-					min={todayAsISO}
-					value={form?.values?.startDate ?? ''}
-					errors={getFieldErrors(form?.errors, 'startDate')}
 					name="startDate"
+					id="startDate"
+					value={dateToISODate(data.booking.startDate)}
+					errors={getFieldErrors(form?.errors, 'startDate')}
 					{formHasErrors}
 				/>
 			</div>
@@ -36,23 +36,17 @@
 				<label for="endDate">Until</label>
 				<Input
 					type="date"
-					id="endDate"
-					min={todayAsISO}
-					value={form?.values?.endDate ?? ''}
-					errors={getFieldErrors(form?.errors, 'endDate')}
 					name="endDate"
+					id="endDate"
+					value={dateToISODate(data.booking.endDate)}
+					errors={getFieldErrors(form?.errors, 'endDate')}
 					{formHasErrors}
 				/>
 			</div>
 		</div>
 		<button type="submit">
-			{#if data.isOwner}
-				<Ban />
-				Block
-			{:else}
-				<CalendarCheck />
-				Book
-			{/if}
+			<CircleFadingArrowUp />
+			Update Booking
 		</button>
 	</form>
 </article>
@@ -63,11 +57,12 @@
 		margin: 0 auto;
 	}
 
-	label {
-		font-size: 0.875em;
+	header {
+		display: flex;
+		justify-content: space-between;
 	}
 
-	.form-errors {
-		color: var(--pico-del-color);
+	button {
+		margin-bottom: 0;
 	}
 </style>
