@@ -14,7 +14,8 @@ export function createSvelteKitAuthConfig(prisma: PrismaClient) {
 				clientSecret: AUTH0_CLIENT_SECRET,
 				issuer: AUTH0_URL
 			})
-		]
+		],
+		trustHost: true
 	});
 }
 

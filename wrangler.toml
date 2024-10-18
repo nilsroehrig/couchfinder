@@ -78,8 +78,8 @@ migrations_dir = "migrations/d1"
 
 ######## PRODUCTION environment config ########
 
-[[env.production.vars]]
-AUTH_TRUST_HOST = "true"
+# [env.production.vars]
+# API_KEY = "abc123"
 
 # [[env.production.kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
