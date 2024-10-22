@@ -7,10 +7,9 @@
 	import Input from '$lib/components/Input.svelte';
 	import { getFieldErrors } from '$lib/helpers/form';
 
-	export let data;
-	export let form;
+	let { data, form } = $props();
 
-	$: formHasErrors = !!form?.errors;
+	let formHasErrors = $derived(!!form?.errors);
 </script>
 
 <article>

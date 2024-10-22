@@ -1,6 +1,13 @@
 <script>
 	import { Bed, Sofa } from 'lucide-svelte';
 	import { SignOut } from '@auth/sveltekit/components';
+	/**
+	 * @typedef {Object} Props
+	 * @property {import('svelte').Snippet} [children]
+	 */
+
+	/** @type {Props} */
+	let { children } = $props();
 </script>
 
 <div class="wrapper">
@@ -18,7 +25,7 @@
 		</nav>
 	</header>
 	<main>
-		<slot />
+		{@render children?.()}
 	</main>
 	<aside>
 		<nav>

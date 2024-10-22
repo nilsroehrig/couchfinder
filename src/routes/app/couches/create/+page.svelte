@@ -5,9 +5,9 @@
 	import TextArea from '$lib/components/TextArea.svelte';
 	import { enhance } from '$app/forms';
 
-	export let form;
+	let { form } = $props();
 
-	$: formHasErrors = !!form?.errors;
+	let formHasErrors = $derived(!!form?.errors);
 </script>
 
 <article>

@@ -2,17 +2,26 @@
 	import FormElementError from '$lib/components/FormElementError.svelte';
 	import type { MaybeFieldErrorsRecord } from '$lib/helpers/form';
 
-	interface $$Props extends Partial<HTMLSelectElement> {
+	
+
+	interface Props {
 		formHasErrors: boolean;
 		errors: MaybeFieldErrorsRecord;
+		name: string;
+		children?: import('svelte').Snippet;
+		[key: string]: any
 	}
 
-	export let formHasErrors = false;
-	export let errors: MaybeFieldErrorsRecord;
-	export let name: string;
+	let {
+		formHasErrors = false,
+		errors,
+		name,
+		children,
+		...rest
+	}: Props = $props();
 
-	$: isInvalid = !formHasErrors ? null : !!errors;
+	let isInvalid = $derived(!formHasErrors ? null : !!errors);
 </script>
 
-<select {...$$restProps} aria-invalid={isInvalid} {name}><slot /></select>
+<select {...rest} aria-invalid={isInvalid} {name}>{@render children?.()}</select>
 <FormElementError {errors} />

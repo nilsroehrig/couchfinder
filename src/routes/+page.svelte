@@ -1,5 +1,4 @@
 <script>
-	import hero from '$lib/assets/images/hero.jpg?enhanced';
 	import { MapPin, MessageCircleMore, Star } from 'lucide-svelte';
 	import { page } from '$app/stores';
 	import { SignIn } from '@auth/sveltekit/components';
@@ -22,11 +21,13 @@
 				from the comfort of a host&rsquo;s couch.
 			</p>
 			<SignIn options={{ redirectTo: `${$page.url.origin}/app` }}>
-				<span slot="submitButton">Join Couchfinder Today</span>
+				{#snippet submitButton()}
+					<span>Join Couchfinder Today</span>
+				{/snippet}
 			</SignIn>
 		</div>
 		<div>
-			<enhanced:img src={hero} alt="" />
+			<img src="/hero.jpg" alt="" />
 		</div>
 	</article>
 </section>

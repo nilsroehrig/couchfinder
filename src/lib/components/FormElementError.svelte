@@ -1,9 +1,13 @@
 <script lang="ts">
 	import type { MaybeFieldErrorsRecord } from '$lib/helpers/form';
 
-	export let errors: MaybeFieldErrorsRecord;
+	interface Props {
+		errors: MaybeFieldErrorsRecord;
+	}
 
-	$: fieldErrors = errors?._errors ?? [];
+	let { errors }: Props = $props();
+
+	let fieldErrors = $derived(errors?._errors ?? []);
 </script>
 
 {#if fieldErrors.length}

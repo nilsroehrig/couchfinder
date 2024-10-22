@@ -7,10 +7,9 @@
 
 	const todayAsISO = new Date().toISOString().split('T').at(0) ?? '';
 
-	export let data;
-	export let form;
+	let { data, form } = $props();
 
-	$: formHasErrors = !!form?.errors;
+	let formHasErrors = $derived(!!form?.errors);
 </script>
 
 <article>

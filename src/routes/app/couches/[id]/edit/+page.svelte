@@ -5,12 +5,11 @@
 	import TextArea from '$lib/components/TextArea.svelte';
 	import { enhance } from '$app/forms';
 
-	export let data;
-	export let form;
+	let { data, form } = $props();
 
-	$: couch = data.couch;
+	let couch = $derived(data.couch);
 
-	$: formHasErrors = !!form?.errors;
+	let formHasErrors = $derived(!!form?.errors);
 </script>
 
 <article>

@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 
-	export let data;
+	let { data } = $props();
 </script>
 
 <article>

@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { Calendar, Pen, PlusCircle, Trash } from 'lucide-svelte';
 
-	export let data;
+	let { data } = $props();
 
-	let term: string = '';
+	let term: string = $state('');
 
-	$: filteredCouches = applyFilter(term);
 
 	function applyFilter(term: string) {
 		return data.couches.filter((couch) =>
 			(couch.location + couch.name).toLowerCase().includes(term.toLowerCase())
 		);
 	}
+	let filteredCouches = $derived(applyFilter(term));
 </script>
 
 <article>
